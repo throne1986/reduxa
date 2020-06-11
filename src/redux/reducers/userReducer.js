@@ -33,7 +33,7 @@ const reducer =(state =initialState, action) =>{
         case ActionTypes.DELETE_USER:
             return{
                 ...state,
-                users:state.users.filter(user => user !==action.payload)
+                users:state.users.filter(user => user.id !==action.payload)
             }
 
         default: return state
