@@ -9,7 +9,8 @@ import thunk from 'redux-thunk'
 import rootReducer from './redux/store/rootReducer'
 import { Provider } from 'react-redux'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+import './index.scss'
+import './App.scss';
 
 
 const store =createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk)));
@@ -18,7 +19,7 @@ ReactDOM.render(
 
   <React.StrictMode>
     <Provider store={store}>
-  <Users></Users>
+        <Users></Users>
     </Provider>
 
   </React.StrictMode>,

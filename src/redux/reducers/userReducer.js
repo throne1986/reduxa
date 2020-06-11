@@ -1,5 +1,6 @@
 
 import ActionTypes from '../acitons/users'
+
 // initialize state
 const initialState = {
     loading:false, // for loading spinner
@@ -28,6 +29,11 @@ const reducer =(state =initialState, action) =>{
                 loading:false,
                 users:[],
                 error:action.payload
+            }
+        case ActionTypes.DELETE_USER:
+            return{
+                ...state,
+                users:state.users.filter(user => user !==action.payload)
             }
 
         default: return state

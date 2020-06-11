@@ -1,13 +1,24 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 //import { fetchUsers } from '../redux'
-import { fetchUsers } from '../redux/acitons/users/Users'
+import { fetchUsers, deleteUser } from '../redux/acitons/users/Users'
 
-function Users ({ userData, fetchUsers }) {
+function Users ({ userData, fetchUsers, deleteUser }) {
 
   useEffect(() => {
-    fetchUsers()
+    fetchUsers();
+    return () => {
+      console.log("cleaned up");
+    };
   },[fetchUsers])
+
+  useEffect(() => {
+    deleteUser();
+    return () => {
+      console.log("cleaned up");
+    };
+  },[deleteUser])
+  
 
   return userData.loading ? (
     <h2>Loading</h2>
@@ -17,8 +28,6 @@ function Users ({ userData, fetchUsers }) {
     <div>
       <h2>Users List</h2>
       <div>
-      
-
             <table id="users">
                 <thead>
                     <tr>
@@ -35,13 +44,23 @@ function Users ({ userData, fetchUsers }) {
                     <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>{user.name}</td>
-                    <td>delete</td>
+                    <td>
+                    <button key={user.id} type="button" className="btn btn-danger btn-link" onClick={deleteUser(user.id)}>
+                                      <i className="material-icons">delete</i>
+                    </button>
+                    <button type="button" className="btn btn-success btn-link">
+                                      <i className="material-icons">edit</i>
+                    </button>
+
+                    </td>
                     </tr>
                 </tbody>
                 )}
 
             </table>
-  
+            <button type="button" className="btn btn-primary btn-link btn-add">
+                                      <i className="material-icons">add user</i>
+              </button>
 
       </div>
     </div>
@@ -58,7 +77,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUsers: () => dispatch(fetchUsers())
+    fetchUsers: () => dispatch(fetchUsers()),
+    deleteUser: (id) => dispatch(deleteUser(id))
   }
 }
 

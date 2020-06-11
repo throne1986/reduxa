@@ -22,11 +22,37 @@ export const fetchUsersFailure = (errors) =>{
     }
 }
 
+export const removeUser =(id) =>{
+    return {
+        type: ActionTypes.DELETE_USER,
+        payload:id
+    }
+}
+//ADD FUNCTION TO DELETE USER_REDUCER
+export const deleteUser =(id) =>{
+    return(dispatch) =>{
+        dispatch(fetchUsersRequest)
+        axios.delete(`http://jsonplaceholder.typicode.com/users/${id}`)
+        .then(response =>{
+            const user = response.data;
+            console.log(user)
+            dispatch(removeUser(user))
+        })
+        .catch(error =>{
+            const errorMsg = error.message;
+            console.log(errorMsg)
+            dispatch(fetchUsersFailure(errorMsg));
+        
+        })
+    }
+
+}
+
 // create function to fetch users from api
 export const fetchUsers = () =>{
     return (dispatch) =>{
         dispatch(fetchUsersRequest)
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        axios.get('http://jsonplaceholder.typicode.com/users')
         .then(response => {
             const users = response.data;
             console.log(users);

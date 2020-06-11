@@ -1,3 +1,5 @@
+$btn-color: white;
+
 .App {
   text-align: center;
   background-color: #000000
@@ -69,4 +71,13 @@
   text-align: center;
   background-color: #4CAF50;
   color: white;
+
+}
+.btn-link{
+  margin:0px 10px;
+  color:$btn-color
+}
+.btn-add {
+    float: right;
+    margin: 20px 75px;
 }
