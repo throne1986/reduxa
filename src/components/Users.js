@@ -30,7 +30,7 @@ function Users ({ userData, fetchUsers, deleteUser, editUser }) {
                     userData.users &&
                     userData.users.map(user => 
                 <tbody>
-                  {user.editing ? <UserForm post={user} key={user.id} />:
+                  {user.editing ? <UserForm user={user} key={user.id} />:
                     <tr key={user.id}>
                       
                         <td>{user.id}</td>
