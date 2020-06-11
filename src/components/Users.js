@@ -12,14 +12,6 @@ function Users ({ userData, fetchUsers, deleteUser }) {
     };
   },[fetchUsers])
 
-  useEffect(() => {
-    deleteUser();
-    return () => {
-      console.log("cleaned up");
-    };
-  },[deleteUser])
-  
-
   return userData.loading ? (
     <h2>Loading</h2>
   ) : userData.error ? (
@@ -45,7 +37,7 @@ function Users ({ userData, fetchUsers, deleteUser }) {
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>
-                    <button key={user.id} type="button" className="btn btn-danger btn-link" onClick={deleteUser(user.id)}>
+                    <button key={user.id} type="button" className="btn btn-danger btn-link" onClick={() => deleteUser(user.id)}>
                                       <i className="material-icons">delete</i>
                     </button>
                     <button type="button" className="btn btn-success btn-link">
