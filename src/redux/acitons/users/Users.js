@@ -28,15 +28,13 @@ export const removeUser =(id) =>{
         payload:id
     }
 }
+
 //ADD FUNCTION TO DELETE USER_REDUCER
 export const deleteUser =(id) =>{
     return(dispatch) =>{
-        dispatch(fetchUsersRequest)
         axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then(response =>{
-            const user = response.data;
-            console.log(user)
-            dispatch(removeUser(user))
+            dispatch(removeUser(id))
         })
         .catch(error =>{
             const errorMsg = error.message;
@@ -45,7 +43,6 @@ export const deleteUser =(id) =>{
         
         })
     }
-
 }
 
 // create function to fetch users from api
