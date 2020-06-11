@@ -5,6 +5,8 @@ const UserActionTypes = {
     FETCH_USERS_SUCESS: 'FETCH_USERS_SUCESS',
     FETCH_USERS_FAILURE: 'FETCH_USERS_FAILURE',
     DELETE_USER: 'DELETE_USER',
+    EDIT_USER: 'EDIT_USER',
+    ADD_USER: 'ADD_USER',
 }
 
 export default{

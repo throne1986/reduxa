@@ -2,12 +2,10 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { fetchUsers, deleteUser, editUser} from '../redux/acitons/users/Users'
+import UserForm from './UserForm'
 
 function Users ({ userData, fetchUsers, deleteUser, editUser }) {
 
-  const handleSubmit =(e) =>{
-    console.log(e)
-  }
   useEffect(() => {
     fetchUsers();
   },[fetchUsers])
@@ -32,32 +30,29 @@ function Users ({ userData, fetchUsers, deleteUser, editUser }) {
                     userData.users &&
                     userData.users.map(user => 
                 <tbody>
-            
+                  {user.editing ? <UserForm post={user} key={user.id} />:
                     <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>
-                    <button key={user.id} type="button" className="btn btn-danger btn-link" onClick={() => deleteUser(user.id)}>
-                                      <i className="material-icons">delete</i>
-                    </button>
-                    <button key={user.id} type="button" className="btn btn-success btn-link" onClick={() =>editUser(user.id)}>
-                                      <i className="material-icons">edit</i>
-                    </button>
-
-                    </td>
+                      
+                        <td>{user.id}</td>
+                        <td>{user.name}</td>
+                        <td>
+                        <button key={user.id} type="button" className="btn btn-danger btn-link" onClick={() => deleteUser(user.id)}>
+                            <i className="material-icons">delete</i>
+                        </button>
+                        <button key={user.id} type="button" className="btn btn-success btn-link" onClick={() =>editUser(user.id)}>
+                            <i className="material-icons">edit</i>
+                        </button>
+                        </td>
                     </tr>
+                  }
                 </tbody>
                 )}
 
             </table>
-            <Form onSubmit={handleSubmit}>
-                  <input type='text' />
-                  <button>submit</button>
-            </Form>
-
+        
             <button type="button" className="btn btn-primary btn-link btn-add">
                                       <i className="material-icons">add user</i>
-              </button>
+            </button>
 
       </div>
     </div>

@@ -5,7 +5,8 @@ import ActionTypes from '../acitons/users'
 const initialState = {
     loading:false, // for loading spinner
     users:[],
-    error:''
+    error:'',
+    editing:false
 }
 
 const reducer =(state =initialState, action) =>{
