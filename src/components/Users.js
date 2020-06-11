@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-//import { fetchUsers } from '../redux'
-import { fetchUsers, deleteUser } from '../redux/acitons/users/Users'
+import styled from 'styled-components'
+import { fetchUsers, deleteUser, editUser} from '../redux/acitons/users/Users'
 
-function Users ({ userData, fetchUsers, deleteUser }) {
+function Users ({ userData, fetchUsers, deleteUser, editUser }) {
 
+  const handleSubmit =(e) =>{
+    console.log(e)
+  }
   useEffect(() => {
     fetchUsers();
-    return () => {
-      console.log("cleaned up");
-    };
   },[fetchUsers])
 
   return userData.loading ? (
@@ -40,7 +40,7 @@ function Users ({ userData, fetchUsers, deleteUser }) {
                     <button key={user.id} type="button" className="btn btn-danger btn-link" onClick={() => deleteUser(user.id)}>
                                       <i className="material-icons">delete</i>
                     </button>
-                    <button type="button" className="btn btn-success btn-link">
+                    <button key={user.id} type="button" className="btn btn-success btn-link" onClick={() =>editUser(user.id)}>
                                       <i className="material-icons">edit</i>
                     </button>
 
@@ -50,6 +50,11 @@ function Users ({ userData, fetchUsers, deleteUser }) {
                 )}
 
             </table>
+            <Form onSubmit={handleSubmit}>
+                  <input type='text' />
+                  <button>submit</button>
+            </Form>
+
             <button type="button" className="btn btn-primary btn-link btn-add">
                                       <i className="material-icons">add user</i>
               </button>
@@ -58,6 +63,10 @@ function Users ({ userData, fetchUsers, deleteUser }) {
     </div>
   )
 }
+
+const Form =styled.div`
+  display:flex;
+`
 
 const mapStateToProps = state => {
     console.log(state)
@@ -70,7 +79,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
-    deleteUser: (id) => dispatch(deleteUser(id))
+    deleteUser: (id) => dispatch(deleteUser(id)),
+    editUser: (id) => dispatch(editUser(id))
   }
 }
 

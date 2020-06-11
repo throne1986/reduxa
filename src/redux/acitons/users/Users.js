@@ -29,27 +29,50 @@ export const removeUser =(id) =>{
     }
 }
 
-//ADD FUNCTION TO DELETE USER_REDUCER
-export const deleteUser =(id) =>{
-    return(dispatch) =>{
-        axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-        .then(response =>{
-            dispatch(removeUser(id))
-        })
-        .catch(error =>{
-            const errorMsg = error.message;
-            console.log(errorMsg)
-            dispatch(fetchUsersFailure(errorMsg));
-        
-        })
+export const editUser =(id) =>{
+    return{
+        type:ActionTypes.EDIT_USER,
+        payload:id
     }
 }
+//ADD FUNCTION TO DELETE USER_REDUCER
+export const deleteUser = id => {
+    return dispatch => {
+        dispatch(fetchUsersRequest);
+        axios
+            .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+            .then(response => {
+                dispatch(removeUser(id));
+            })
+            .catch(error => {
+                const errorMsg = error.message;
+                console.log(errorMsg);
+                dispatch(fetchUsersFailure(errorMsg));
+            });
+    };
+};
+
+//add function to edit the user info
+
+export const updateUser = (id) =>{
+    return dispatch =>{
+     axios.put(`https://jsonplaceholder.typicode.com/users/${id}`)
+     .then(response =>{
+         dispatch(editUser(id));
+     })
+     .catch(error =>{
+         const errorMsg = error.message;
+         dispatch(fetchUsersFailure(errorMsg));
+     })
+    }
+}
+
 
 // create function to fetch users from api
 export const fetchUsers = () =>{
     return (dispatch) =>{
         dispatch(fetchUsersRequest)
-        axios.get('https://jsonplaceholder.typicode.com/users')
+        axios.get('http://jsonplaceholder.typicode.com/users')
         .then(response => {
             const users = response.data;
             console.log(users);
