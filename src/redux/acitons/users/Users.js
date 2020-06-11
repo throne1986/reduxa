@@ -32,7 +32,7 @@ export const removeUser =(id) =>{
 export const deleteUser =(id) =>{
     return(dispatch) =>{
         dispatch(fetchUsersRequest)
-        axios.delete(`http://jsonplaceholder.typicode.com/users/${id}`)
+        axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then(response =>{
             const user = response.data;
             console.log(user)
@@ -52,7 +52,7 @@ export const deleteUser =(id) =>{
 export const fetchUsers = () =>{
     return (dispatch) =>{
         dispatch(fetchUsersRequest)
-        axios.get('http://jsonplaceholder.typicode.com/users')
+        axios.get('https://jsonplaceholder.typicode.com/users')
         .then(response => {
             const users = response.data;
             console.log(users);
