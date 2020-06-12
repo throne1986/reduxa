@@ -34,12 +34,20 @@ export const editUser = id => {
     payload: id
   };
 };
+
+export const addUser = data =>{
+  return{
+    type: ActionTypes.ADD_USER,
+    payload: data
+  }
+};
+
 //ADD FUNCTION TO DELETE USER_REDUCER
 export const deleteUser = id => {
   return dispatch => {
     dispatch(fetchUsersRequest);
     axios
-      .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .delete(`http://jsonplaceholder.typicode.com/users/${id}`)
       .then(response => {
         dispatch(removeUser(id));
       })
@@ -56,7 +64,7 @@ export const deleteUser = id => {
 export const updateUser = data => {
   return dispatch => {
     axios
-      .put(`https://jsonplaceholder.typicode.com/users/${data.id}`, data)
+      .put(`http://jsonplaceholder.typicode.com/users/${data.id}`, data)
       .then(response => {
         dispatch(editUser(data.id));
         dispatch(fetchUsers());
@@ -85,3 +93,18 @@ export const fetchUsers = () => {
       });
   };
 };
+
+// create a fucntion to add new user to the api
+
+export const addNewUser = data => {
+  return dispatch => {
+    axios.post("https://jsonplaceholder.typicode.com/users")
+    .then(response =>{
+      dispatch(addUser(data));
+    })
+    .catch(error => {
+      const errorMsg = error.message;
+      dispatch(fetchUsersFailure(errorMsg));
+    })
+  }
+}

@@ -36,14 +36,19 @@ const reducer =(state =initialState, action) =>{
                 ...state,
                 users:state.users.filter(user => user.id !==action.payload)
             }
-            case ActionTypes.EDIT_USER:
-                return{
+        case ActionTypes.EDIT_USER:
+            return{
                     ...state,
                     users:state.users.map((user)=>user.id === action.payload ? {
                         ...user,editing:!user.editing
                     }:user)
                     
-                }
+             }
+             case ActionTypes.ADD_USER:
+                 return{
+                     ...state,
+                     users:state.users.concat(action.payload) 
+                 }
 
         default: return state
     }

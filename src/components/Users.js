@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { fetchUsers, deleteUser, editUser } from "../redux/acitons/users/Users";
+import { fetchUsers, deleteUser, editUser, addUser} from "../redux/acitons/users/Users";
 import UserForm from "./UserForm";
 
-function Users({ userData, fetchUsers, deleteUser, editUser }) {
+function Users({ userData, fetchUsers, deleteUser, editUser, addUser }) {
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
@@ -58,17 +58,18 @@ function Users({ userData, fetchUsers, deleteUser, editUser }) {
               ))}
           </tbody>
         </table>
-        <button type="button" className="btn btn-primary btn-link btn-add">
-          <i className="material-icons">add user</i>
+        <button
+          type="button"
+          className="btn btn-success btn-link btn-add"
+          onClick={() => addUser()}
+                        >
+          <i className="material-icons">Add user</i>
         </button>
       </div>
     </div>
   );
 }
 
-const Form = styled.div`
-  display: flex;
-`;
 
 const mapStateToProps = state => {
   console.log(state);
@@ -81,7 +82,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
     deleteUser: id => dispatch(deleteUser(id)),
-    editUser: id => dispatch(editUser(id))
+    editUser: id => dispatch(editUser(id)),
+    addUser: data => dispatch(addUser(data)),
   };
 };
 

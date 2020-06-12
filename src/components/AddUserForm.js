@@ -1,21 +1,22 @@
-import React, {useState} from "react";
-import { useDispatch } from "react-redux";
-import { editUser, updateUser } from "../redux/acitons/users/Users";
+import React, { useState } from 'react'
+import {useDispatch} from 'react-redux'
+import {addUser, addNewUser  } from './redux/acitons/users/Users';
 
-function UserForm({ user }) {
-  const dispatch = useDispatch();
+function AddUserForm({ user }) {
+    const dispatch = useDispatch();
+    const [name, setName ] = useState(user.name);
 
-  const [name, setName] = useState(user.name);
-
-  const handleSubmit = () => {
-    console.log(name);
-    dispatch(updateUser({ ...user, name }));
-  };
+   const handleSubmit = () =>{
+        console.log(name)
+        dispatch(addNewUser( {
+            ...user, name
+        }));
+   }
 
   const handleCancel = () => {
-    dispatch(editUser(user.id));
-  };
-
+      console.log(user.id);
+      dispatch(addUser(user.id))
+  }
   return (
     <tr>
       <td>{user.id}</td>
@@ -41,4 +42,4 @@ function UserForm({ user }) {
   );
 }
 
-export default UserForm;
+export default AddUserForm
