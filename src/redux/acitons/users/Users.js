@@ -47,7 +47,7 @@ export const deleteUser = id => {
   return dispatch => {
     dispatch(fetchUsersRequest);
     axios
-      .delete(`http://jsonplaceholder.typicode.com/users/${id}`)
+      .delete(`http://localhost:3000/users/${id}`)
       .then(response => {
         dispatch(removeUser(id));
       })
@@ -64,9 +64,10 @@ export const deleteUser = id => {
 export const updateUser = data => {
   return dispatch => {
     axios
-      .put(`http://jsonplaceholder.typicode.com/users/${data.id}`, data)
+      .put(`http://localhost:3000/users/${data.id}`, data)
       .then(response => {
         dispatch(editUser(data.id));
+        console.log(data);
         dispatch(fetchUsers());
       })
       .catch(error => {
@@ -81,7 +82,7 @@ export const fetchUsers = () => {
   return dispatch => {
     dispatch(fetchUsersRequest);
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
+      .get("http://localhost:3000/users/")
       .then(response => {
         const users = response.data;
         console.log(users);
@@ -98,7 +99,7 @@ export const fetchUsers = () => {
 
 export const addNewUser = data => {
   return dispatch => {
-    axios.post("https://jsonplaceholder.typicode.com/users")
+    axios.post("http://localhost:3000/users/")
     .then(response =>{
       dispatch(addUser(data));
     })

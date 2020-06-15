@@ -1,13 +1,26 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import { fetchUsers, deleteUser, editUser, addUser} from "../redux/acitons/users/Users";
+import {
+  fetchUsers,
+  deleteUser,
+  editUser,
+  addUser
+} from "../redux/acitons/users/Users";
 import UserForm from "./UserForm";
 
 function Users({ userData, fetchUsers, deleteUser, editUser, addUser }) {
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
+
+  const addNewUser = () => {
+    const usersList = userData.users;
+    const newUserId = usersList[usersList.length - 1].id + 1;
+    addUser({
+      id: newUserId
+    });
+    editUser(newUserId);
+  };
 
   return userData.loading ? (
     <h2>Loading</h2>
@@ -61,15 +74,14 @@ function Users({ userData, fetchUsers, deleteUser, editUser, addUser }) {
         <button
           type="button"
           className="btn btn-success btn-link btn-add"
-          onClick={() => addUser()}
-                        >
+          onClick={addNewUser}
+        >
           <i className="material-icons">Add user</i>
         </button>
       </div>
     </div>
   );
 }
-
 
 const mapStateToProps = state => {
   console.log(state);
@@ -83,7 +95,7 @@ const mapDispatchToProps = dispatch => {
     fetchUsers: () => dispatch(fetchUsers()),
     deleteUser: id => dispatch(deleteUser(id)),
     editUser: id => dispatch(editUser(id)),
-    addUser: data => dispatch(addUser(data)),
+    addUser: data => dispatch(addUser(data))
   };
 };
 

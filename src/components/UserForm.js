@@ -7,7 +7,8 @@ function UserForm({ user }) {
 
   const [name, setName] = useState(user.name);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     console.log(name);
     dispatch(updateUser({ ...user, name }));
   };

@@ -6,7 +6,8 @@ function AddUserForm({ user }) {
     const dispatch = useDispatch();
     const [name, setName ] = useState(user.name);
 
-   const handleSubmit = () =>{
+   const handleSubmit = (e) =>{
+    e.preventDefault()
         console.log(name)
         dispatch(addNewUser( {
             ...user, name

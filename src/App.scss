@@ -2,7 +2,6 @@ $btn-color: white;
 
 .App {
   text-align: center;
-  background-color: #000000
 }
 .body{
   background-color: red
@@ -20,7 +19,6 @@ $btn-color: white;
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -80,4 +78,12 @@ $btn-color: white;
 .btn-add {
     float: right;
     margin: 20px 75px;
+}
+
+.sticky-nav {
+  position: sticky;
+  top: 0;
+}
+.mr-auto >a{
+  padding:10px;
 }
