@@ -16,7 +16,6 @@ function AddUserForm({users}) {
     console.log("your id", newUserId)
 
     dispatch(addNewUser({
-      ...users,
       id: newUserId,
       name: newUserName,
     }));
