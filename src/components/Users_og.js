@@ -1,29 +1,30 @@
-import React, { useEffect, useState} from "react";
-import { connect } from "react-redux";
-import {
-  fetchUsers,
-  deleteUser,
-  editUser,
-  addUser
-} from "../redux/acitons/users/Users";
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { fetchUsers, deleteUser, editUser, addNewUser } from  "../redux/acitons/users/Users";
 import UserForm from "./UserForm";
-import AddUserForm from './AddUserForm'
 
-function Users({ name, userData, fetchUsers, deleteUser, editUser, addUser }) {
-  const[adding, setAdding] = useState(false);
-  
+
+function Users({ userData, fetchUsers, deleteUser, editUser, addUser }) {
+  const [adding, setAdding] = useState(false);
+  const [newUserName, setNewUserName] = useState('');
+  const dispatch = useDispatch();
+
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
-
-  const addNewUser = (e) => {
+  
+  const submitNewUser = () => {
     const usersList = userData.users;
     const newUserId = usersList[usersList.length - 1].id + 1;
-    addUser({
+    
+    dispatch(addNewUser({
       id: newUserId,
-      name:name
-    });
+      name: newUserName,
+    }));
     setAdding(false);
+    setNewUserName('');
+
+    // editUser(newUserId);
   };
 
   return userData.loading ? (
@@ -74,9 +75,12 @@ function Users({ name, userData, fetchUsers, deleteUser, editUser, addUser }) {
                 </>
               ))}
               {adding && <>
-                <AddUserForm addNewUser={addNewUser} name={name}>
-
-                </AddUserForm>
+                <tr>
+                  <td></td>
+                  <td><input type="text" value={newUserName} onChange={e => setNewUserName(e.target.value)} /></td>
+                  <td><button type="button" onClick={submitNewUser}>Save</button></td>
+                  <td></td>
+                </tr>
               </>}
           </tbody>
         </table>
@@ -104,7 +108,7 @@ const mapDispatchToProps = dispatch => {
     fetchUsers: () => dispatch(fetchUsers()),
     deleteUser: id => dispatch(deleteUser(id)),
     editUser: id => dispatch(editUser(id)),
-    addUser: data => dispatch(addUser(data))
+    // addUser: data => dispatch(addUser(data))
   };
 };
 
@@ -112,3 +116,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Users);
+
+
