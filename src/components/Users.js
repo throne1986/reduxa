@@ -1,30 +1,16 @@
 import React, { useEffect, useState} from "react";
 import { connect } from "react-redux";
-import {
-  fetchUsers,
-  deleteUser,
-  editUser,
-  addUser
-} from "../redux/acitons/users/Users";
+import {fetchUsers, deleteUser, editUser,addUser } from "../redux/acitons/users/Users";
 import UserForm from "./UserForm";
 import AddUserForm from './AddUserForm'
 
-function Users({ name, userData, fetchUsers, deleteUser, editUser, addUser }) {
+function Users({ userData, fetchUsers, deleteUser, editUser, addNewUser }) {
+
   const[adding, setAdding] = useState(false);
   
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
-
-  const addNewUser = (e) => {
-    const usersList = userData.users;
-    const newUserId = usersList[usersList.length - 1].id + 1;
-    addUser({
-      id: newUserId,
-      name:name
-    });
-    setAdding(false);
-  };
 
   return userData.loading ? (
     <h2>Loading</h2>
@@ -74,9 +60,7 @@ function Users({ name, userData, fetchUsers, deleteUser, editUser, addUser }) {
                 </>
               ))}
               {adding && <>
-                <AddUserForm addNewUser={addNewUser} name={name}>
-
-                </AddUserForm>
+                <AddUserForm addNewUser={addNewUser} users={userData.users} />
               </>}
           </tbody>
         </table>
@@ -104,7 +88,6 @@ const mapDispatchToProps = dispatch => {
     fetchUsers: () => dispatch(fetchUsers()),
     deleteUser: id => dispatch(deleteUser(id)),
     editUser: id => dispatch(editUser(id)),
-    addUser: data => dispatch(addUser(data))
   };
 };
 

@@ -36,6 +36,7 @@ export const editUser = id => {
 };
 
 export const addUser = data =>{
+  console.log('dataaaaaa added by aduser', data)
   return{
     type: ActionTypes.ADD_USER,
     payload: data
@@ -104,6 +105,7 @@ export const addNewUser = data => {
   return dispatch => {
     axios.post("http://localhost:3000/users")
     .then(response =>{
+      // console.log("datata sent by me", response.data)
       dispatch(addUser(data));
       dispatch(fetchUsers());
     })

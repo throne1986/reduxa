@@ -47,7 +47,8 @@ const reducer =(state =initialState, action) =>{
              case ActionTypes.ADD_USER:
                  return{
                      ...state,
-                     users:state.users.concat(action.payload) 
+                     users:state.users.concat(action.payload),
+                     editing:false
                  }
 
         default: return state

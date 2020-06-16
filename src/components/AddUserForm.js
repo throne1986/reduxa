@@ -1,30 +1,37 @@
 import React, { useState } from 'react'
 import {useDispatch} from 'react-redux'
-import {addUser, addNewUser  } from '../redux/acitons/users/Users';
+import { addNewUser  } from '../redux/acitons/users/Users';
 
-function AddUserForm({ user }) {
+function AddUserForm({users}) {
     const dispatch = useDispatch();
-    const [name, setName ] = useState('');
+    const [newUserName, setNewUserName] = useState('');
 
    const handleSubmit = (e) =>{
     e.preventDefault();
-        dispatch(addNewUser( {
-            ...user,
-             name
-        }));
-        setName('')
+
+    const usersList = users;
+    const newUserId = usersList[usersList.length - 1].id + 1;
+    
+    console.log("your name", newUserName);
+    console.log("your id", newUserId)
+
+    dispatch(addNewUser({
+      ...users,
+      id: newUserId,
+      name: newUserName,
+    }));
+ 
    }
 
-  const handleCancel = () => {
-      dispatch(addUser(user.id))
-  }
+  const handleCancel = () => {};
   return (
     <tr>
-      <td></td>
+      <td>{newUserName.id}</td>
       <td>
         <input
-          value={name}
-          onChange={e => setName(e.target.value)}
+          value={newUserName}
+          name="name"
+          onChange={e => setNewUserName(e.target.value)}
         />
       </td>
       <td>
