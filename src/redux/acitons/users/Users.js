@@ -99,7 +99,7 @@ export const fetchUsers = () => {
 
 export const addNewUser = data => {
   return dispatch => {
-    axios.post("http://localhost:3000/users/")
+    axios.post("http://localhost:3000/users/", data)
     .then(response =>{
       dispatch(addUser(data));
     })
